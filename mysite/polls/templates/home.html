@@ -1,21 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <title>HOME</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href={%static apariencia%}>
 </head>
 <body>
 
+
+{% load dict_tags %}
+<!-- Parte superior de la páina que incluye el nombre de la app, logo y
+opción para comprimir archivo
+-->
+<nav class="navbar navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">
+    <img src={% static logo %} width="30" height="30" class="d-inline-block align-top" alt="">
+    Truck APP
+  </a>
+  <form class="form-inline">
+    <button class="btn buttonZip" type="button">ARCHIVO .ZIP</button>
+  </form>
+</nav>
+<!-- Botones correcpondientes a los timestamps existentes, se encuentran en el centro de la pagina
+-->
+
+<div class="mx-auto" style="width: 200px;">
+
 {% for token in tokens %}
-    <a class="btn btn-{% if existeDirectorio is True %}primary{% else %}secondary{% endif %}" href="{% url 'image' token %}">{{ token }}</a>
     <br>
-    <br>
+         {%if sidirectorio|get:token is True %}
+            <a class="btn btn-primary" href="{% url 'image' token %}">{{ token }}</a>
+         {%else%}
+            <a class="btn btn-secondary disabled" >{{ token }}</a>
+         {% endif %}
+         <br>
+
+
+
 
 {% endfor %}
+</div>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.js"  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.js"  crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js"  crossorigin="anonymous"></script>
+
+
+
+<script>
+    $(".buttonZip").click(function(){
+       $.get( "{% url 'completoZip' %}" );
+    });
+
+</script>
 </body>
 </html>
