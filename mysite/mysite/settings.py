@@ -25,11 +25,11 @@ SECRET_KEY = 'k-&0*di60@tnz4)^ribe((kbd+r@c848%*9nz*(_=_mqxbvyb3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0']
 
-LOGDIR = '/home/energy/myfirstapp/mysite/logs/truck_data.log'
+LOGDIR = '/home/energy/truckDataApp/mysite/logs/truck_data.log'
 
-IMAGEDIR = '/home/energy/myfirstapp/mysite/static'
+IMAGEDIR = '/home/energy/truckDataApp/mysite/static'
 
 
 # Application definition

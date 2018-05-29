@@ -1,23 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <title>IMAGES</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href={% static apariencia %}>
+
 </head>
 <body>
-{% for image in imagenes %}
-    {% load static %}
-    <img src={% static image %}/>
-{% endfor %}
+
+<!-- Parte superior de la páina que incluye el nombre del TimeStamp
+en el que se encuentra , logo y
+opción para comprimir archivo
+-->
+<nav class="navbar navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">
+    <img src={% static logo %} width="30" height="30" class="d-inline-block align-top" alt="">
+    {{token}}
+  </a>
+  <form class="form-inline">
+    <button class="btn buttonZip" type="button">ARCHIVO .ZIP</button>
+  </form>
+</nav>
+<!-- Container del timeStamp con las imágenes correspondientes-->
+<div class="container">
+
+    {% for image in imagenes %}
+          <div class="foto"><img src={% static image %} style="width: 100%;"/></div>
+
+    {% endfor %}
+</div>
+
+<br>
+<br>
+<!-- Tabla con la info del timestamp-->
+{% load dict_tags %}
+<table class="table table-striped">
+
+    <thead>
+    <tr>
+      {% for col in columnas %}
+      <th scope="col">{{col}}</th>
+      {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      {% for col in columnas %}
+      <td>{{info|get:col}}</td>
+      {% endfor %}
+    </tr>
+    </tbody>
+</table>
 <br>
 <br>
 
-{{ info }}
+<!-- Botón para volver a la página inicial-->
+<a class="botonVolver" href="{% url 'home' %}">VOLVER</a>
+<br>
+<script src="https://code.jquery.com/jquery-3.2.1.js"  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.js"  crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js"  crossorigin="anonymous"></script>
 
-<br>
-<br>
-<a class="btn btn-primary" href="{% url 'home' %}">VOLVER</a>
+
+
+<script>
+    $(".buttonZip").click(function(){
+       $.get( "{% url 'archivoZip' token %}" );
+    });
+
+</script>
 
 </body>
 </html>
